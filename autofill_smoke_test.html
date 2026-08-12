@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<!--
+Copyright 2016 The Chromium Authors
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.
+-->
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.5"/>
+    <title>Autofill Smoke Test</title>
+
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 20px;
+        color: light-dark(#171717, #f4f4f5);
+        background: light-dark(#ffffff, #18181b);
+      }
+
+      h3 {
+        margin: 0 0 18px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      form {
+        display: grid;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      input,
+      select {
+        width: 100%;
+        min-height: 46px;
+        padding: 9px 11px;
+        border: 1px solid light-dark(#c7c7cc, #52525b);
+        border-radius: 10px;
+        color: inherit;
+        background: light-dark(#ffffff, #27272a);
+        font: inherit;
+      }
+
+      button {
+        min-height: 46px;
+        padding: 10px 18px;
+        border: 0;
+        border-radius: 10px;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        background: light-dark(#e5e7eb, #3f3f46);
+        color: inherit;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 2px;
+      }
+
+      input[type="reset"],
+      input[type="submit"] {
+        border: 0;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      input[type="reset"] {
+        background: light-dark(#e5e7eb, #3f3f46);
+      }
+
+      input[type="submit"] {
+        color: #ffffff;
+        background: #2563eb;
+      }
+
+      @media (max-width: 390px) {
+        body {
+          padding: 16px;
+        }
+      }
+    </style>
+
+    <script>
+      var FillFormPresident = function() {
+        var form = document.forms['profile_form'];
+        form['name'].value = 'George Washington';
+        form['address'].value = '1600 Pennsylvania Ave NW';
+        form['city'].value = 'Washington';
+        form['state'].value = 'DC';
+        form['zip'].value = '20500';
+      }
+    </script>
+  </head>
+
+  <body>
+    <h3>Profile Autofill</h3>
+
+    <form name="addr1.1" id="profile_form" action="destination.html" method="post" autocomplete="on">
+      <label>
+        Name
+        <input type="text" name="name" id="form_name" autocomplete="name" placeholder="George Washington" required />
+      </label>
+
+      <label>
+        Address
+        <input type="text" name="address" id="form_address" autocomplete="street-address" placeholder="1600 Pennsylvania Ave NW" required />
+      </label>
+
+      <label>
+        City
+        <input type="text" name="city" id="form_city" autocomplete="address-level2" placeholder="Washington" required />
+      </label>
+
+      <label>
+        State
+        <select name="state" id="form_state" autocomplete="address-level1" required>
+          <option value="">Select state</option>
+          <option value="CA">CA</option>
+          <option value="MA">MA</option>
+          <option value="NY">NY</option>
+          <option value="MD">MD</option>
+          <option value="OR">OR</option>
+          <option value="OH">OH</option>
+          <option value="IL">IL</option>
+          <option value="DC">DC</option>
+        </select>
+      </label>
+
+      <label>
+        Zip
+        <input type="text" name="zip" id="form_zip" autocomplete="postal-code" inputmode="numeric" placeholder="20500" required />
+      </label>
+
+      <label>
+        Email
+        <input type="email" name="email" id="form_email" autocomplete="email" placeholder="email+1@example.com" required />
+      </label>
+
+      <div class="actions">
+        <input type="reset" value="Reset" />
+        <input id="submit_profile" type="submit" value="Submit Profile" />
+      </div>
+    </form>
+
+    <button type="button" onclick="FillFormPresident()" id="fill_profile_president">Fill Form (President)</button>
+  </body>
+</html>
