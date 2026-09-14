@@ -14,7 +14,7 @@ found in the LICENSE file.
     <style>
       :root {
         color-scheme: light dark;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
       }
 
       * {
@@ -24,14 +24,15 @@ found in the LICENSE file.
       body {
         margin: 0;
         padding: 20px;
-        color: light-dark(#171717, #f4f4f5);
-        background: light-dark(#ffffff, #18181b);
+        color: light-dark(#182230, #f7f8fa);
+        background: light-dark(#ffffff, #141b26);
       }
 
       h3 {
         margin: 0 0 18px;
         font-size: 20px;
-        font-weight: 600;
+        font-weight: 750;
+        letter-spacing: -0.03em;
       }
 
       form {
@@ -52,10 +53,10 @@ found in the LICENSE file.
         width: 100%;
         min-height: 46px;
         padding: 9px 11px;
-        border: 1px solid light-dark(#c7c7cc, #52525b);
-        border-radius: 10px;
+        border: 1px solid light-dark(#d9dee8, #384253);
+        border-radius: 12px;
         color: inherit;
-        background: light-dark(#ffffff, #27272a);
+        background: light-dark(#ffffff, #1b2431);
         font: inherit;
       }
 
@@ -63,7 +64,7 @@ found in the LICENSE file.
         min-height: 46px;
         padding: 10px 18px;
         border: 0;
-        border-radius: 10px;
+        border-radius: 12px;
         font: inherit;
         font-weight: 600;
         cursor: pointer;
@@ -91,7 +92,8 @@ found in the LICENSE file.
 
       input[type="submit"] {
         color: #ffffff;
-        background: #2563eb;
+        background: linear-gradient(135deg, #6c5ce7, #7d6bf2);
+        box-shadow: 0 10px 22px rgba(108, 92, 231, 0.2);
       }
 
       @media (max-width: 390px) {

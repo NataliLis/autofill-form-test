@@ -3,20 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Payment Card Autofill in iframe</title>
+  <title>Payment Card Autofill Test</title>
   <link rel="stylesheet" href="shell.css">
 </head>
 <body>
   <main>
-    <nav aria-label="Autofill test forms">
-      <a href="index.html">Home</a>
-      <a href="profile.html">Profile</a>
-      <a href="password.html">Passwords</a>
-      <a href="card.html" aria-current="page">Cards</a>
-    </nav>
+    <header class="site-header">
+      <a class="brand" href="index.html"><span aria-hidden="true">AF</span>Autofill Lab</a>
+      <nav aria-label="Autofill test forms">
+        <a href="profile.html">Profile</a>
+        <a href="password.html">Passwords</a>
+        <a href="card.html" aria-current="page">Cards</a>
+      </nav>
+    </header>
+    <section class="page-intro">
+      <p class="kicker">03 · Payment</p>
+      <h1>Банковская карта</h1>
+      <p>Проверка карточного Autofill и предложения сохранить новый способ оплаты.</p>
+    </section>
 
     <div class="form-container">
       <iframe
+        class="card-frame"
         id="card-form-iframe"
         title="Payment card autofill test form"
         sandbox="allow-scripts allow-forms allow-same-origin"
