@@ -66,6 +66,9 @@
 
   <script>
     const expiration = document.getElementById("cc_exp");
+    const form = document.getElementById("card_form");
+    let useLocalSubmitFallback = !("serviceWorker" in navigator);
+
     expiration.addEventListener("input", (event) => {
       const digits = expiration.value.replace(/\D/g, "").slice(0, 4);
       const deleting = event.inputType?.startsWith("delete");
@@ -74,6 +77,21 @@
         : digits.length === 2 && !deleting
           ? `${digits}/`
           : digits;
+    });
+
+    window.addEventListener("message", (event) => {
+      if (event.origin === window.location.origin && event.data?.type === "autofill-card-fallback") {
+        useLocalSubmitFallback = true;
+      }
+    });
+
+    form.addEventListener("submit", (event) => {
+      if (!useLocalSubmitFallback) return;
+      event.preventDefault();
+      window.parent.postMessage(
+        { type: "autofill-test-submit", fallback: true },
+        window.location.origin
+      );
     });
   </script>
 </body>

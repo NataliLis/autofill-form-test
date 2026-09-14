@@ -26,6 +26,7 @@
       <iframe
         class="card-frame"
         id="card-form-iframe"
+        src="card_form.html?v=20260914-3"
         title="Payment card autofill test form"
         sandbox="allow-scripts allow-forms allow-same-origin"
       ></iframe>
@@ -39,24 +40,40 @@
   <script>
     const iframe = document.getElementById("card-form-iframe");
     const status = document.getElementById("submit-status");
+    let useLocalSubmitFallback = !("serviceWorker" in navigator);
+
+    function enableLocalSubmitFallback() {
+      useLocalSubmitFallback = true;
+      iframe.contentWindow?.postMessage({ type: "autofill-card-fallback" }, window.location.origin);
+    }
+
+    iframe.addEventListener("load", () => {
+      if (useLocalSubmitFallback) enableLocalSubmitFallback();
+    });
 
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("card-submit-sw.js")
         .then(() => navigator.serviceWorker.ready)
         .then(() => {
-          iframe.src = "card_form.html";
           status.textContent = "Используйте только тестовые карточные данные";
         })
         .catch(() => {
-          status.textContent = "Service worker недоступен — сохранение карты нельзя проверить";
+          enableLocalSubmitFallback();
+          status.textContent = "Форма доступна. Этот браузер не поддерживает проверку сохранения карты";
         });
     } else {
-      status.textContent = "Service worker не поддерживается — сохранение карты нельзя проверить";
+      status.textContent = "Форма доступна. Этот браузер не поддерживает проверку сохранения карты";
     }
 
     navigator.serviceWorker?.addEventListener("message", (event) => {
       if (event.data?.type === "autofill-test-submit") {
         status.textContent = "Submit распознан: payment card";
+      }
+    });
+
+    window.addEventListener("message", (event) => {
+      if (event.origin === window.location.origin && event.data?.type === "autofill-test-submit" && event.data.fallback) {
+        status.textContent = "Submit распознан локально. Сохранение карты недоступно без Service Worker";
       }
     });
   </script>
