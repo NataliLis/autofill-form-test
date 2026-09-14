@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.5">
+  <title>Payment Card Autofill Test</title>
+  <link rel="stylesheet" href="form.css">
+</head>
+<body>
+  <h1>Payment Card Autofill</h1>
+  <p class="hint">Use only test data. No values are sent to a server or stored by this page.</p>
+
+  <form id="card_form" name="payment" action="destination.html" method="post" autocomplete="on">
+    <label for="cc_name">
+      Name on card
+      <input id="cc_name" name="cc-name" type="text" autocomplete="cc-name" placeholder="AUTOFILL TEST" required>
+    </label>
+
+    <label for="cc_number">
+      Card number
+      <input
+        id="cc_number"
+        name="cc-number"
+        type="text"
+        autocomplete="cc-number"
+        inputmode="numeric"
+        pattern="[0-9 ]{12,23}"
+        maxlength="23"
+        placeholder="4111 1111 1111 1111"
+        required
+      >
+    </label>
+
+    <div class="row">
+      <label for="cc_exp">
+        Expiration
+        <input
+          id="cc_exp"
+          name="cc-exp"
+          type="text"
+          autocomplete="cc-exp"
+          inputmode="numeric"
+          pattern="(0[1-9]|1[0-2])\s*\/\s*[0-9]{2,4}"
+          placeholder="MM/YY"
+          required
+        >
+      </label>
+
+      <label for="cc_csc">
+        Security code
+        <input
+          id="cc_csc"
+          name="cc-csc"
+          type="text"
+          autocomplete="cc-csc"
+          inputmode="numeric"
+          pattern="[0-9]{3,4}"
+          maxlength="4"
+          placeholder="123"
+          required
+        >
+      </label>
+    </div>
+
+    <label for="billing_postal_code">
+      Billing postal code
+      <input
+        id="billing_postal_code"
+        name="billing-postal-code"
+        type="text"
+        autocomplete="billing postal-code"
+        inputmode="numeric"
+        placeholder="20500"
+        required
+      >
+    </label>
+
+    <div class="actions">
+      <input type="reset" value="Reset">
+      <input id="submit_card" type="submit" value="Submit card">
+    </div>
+  </form>
+
+  <script>
+    document.getElementById("card_form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      window.parent.postMessage({ type: "autofill-test-submit", flow: "payment-card" }, window.location.origin);
+      window.location.assign("destination.html?flow=payment-card");
+    });
+  </script>
+</body>
+</html>

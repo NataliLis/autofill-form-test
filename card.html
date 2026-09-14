@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payment Card Autofill in iframe</title>
+  <link rel="stylesheet" href="shell.css">
+</head>
+<body>
+  <main>
+    <nav aria-label="Autofill test forms">
+      <a href="index.html">Profile</a>
+      <a href="password.html">Passwords</a>
+      <a href="card.html" aria-current="page">Cards</a>
+    </nav>
+
+    <div class="form-container">
+      <iframe
+        id="card-form-iframe"
+        src="card_form.html"
+        title="Payment card autofill test form"
+        sandbox="allow-scripts allow-forms allow-same-origin"
+      ></iframe>
+    </div>
+
+    <span id="submit-status" class="status" role="status" aria-live="polite">
+      Используйте только тестовые карточные данные
+    </span>
+  </main>
+
+  <script>
+    const iframe = document.getElementById("card-form-iframe");
+    const status = document.getElementById("submit-status");
+
+    window.addEventListener("message", (event) => {
+      if (event.origin !== window.location.origin || event.source !== iframe.contentWindow) return;
+      if (event.data?.type === "autofill-test-submit") {
+        status.textContent = "Submit распознан: payment card";
+      }
+    });
+  </script>
+</body>
+</html>

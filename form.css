@@ -1,0 +1,90 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  color: light-dark(#171717, #f4f4f5);
+  background: light-dark(#ffffff, #18181b);
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 650;
+}
+
+.hint {
+  margin: 0 0 18px;
+  color: light-dark(#64646f, #a1a1aa);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+form {
+  display: grid;
+  gap: 14px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  min-height: 46px;
+  padding: 9px 11px;
+  border: 1px solid light-dark(#c7c7cc, #52525b);
+  border-radius: 10px;
+  color: inherit;
+  background: light-dark(#ffffff, #27272a);
+  font: inherit;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+button,
+input[type="reset"],
+input[type="submit"] {
+  border: 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button,
+input[type="reset"] {
+  background: light-dark(#e5e7eb, #3f3f46);
+}
+
+input[type="submit"] {
+  color: #ffffff;
+  background: #2563eb;
+}
+
+@media (max-width: 390px) {
+  body {
+    padding: 16px;
+  }
+}
