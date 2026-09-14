@@ -26,7 +26,7 @@
       <iframe
         class="card-frame"
         id="card-form-iframe"
-        src="card_form.html?v=20260914-3"
+        src="card_form.html?v=20260914-4"
         title="Payment card autofill test form"
         sandbox="allow-scripts allow-forms allow-same-origin"
       ></iframe>
@@ -59,10 +59,10 @@
         })
         .catch(() => {
           enableLocalSubmitFallback();
-          status.textContent = "Форма доступна. Этот браузер не поддерживает проверку сохранения карты";
+          status.textContent = "Обычный submit без Service Worker";
         });
     } else {
-      status.textContent = "Форма доступна. Этот браузер не поддерживает проверку сохранения карты";
+      status.textContent = "Обычный submit без Service Worker";
     }
 
     navigator.serviceWorker?.addEventListener("message", (event) => {
@@ -73,7 +73,7 @@
 
     window.addEventListener("message", (event) => {
       if (event.origin === window.location.origin && event.data?.type === "autofill-test-submit" && event.data.fallback) {
-        status.textContent = "Submit распознан локально. Сохранение карты недоступно без Service Worker";
+        status.textContent = "Submit выполнен: payment card";
       }
     });
   </script>

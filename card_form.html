@@ -87,11 +87,22 @@
 
     form.addEventListener("submit", (event) => {
       if (!useLocalSubmitFallback) return;
-      event.preventDefault();
+      form.action = "destination.html";
+      form.method = "get";
+      for (const field of form.elements) {
+        field.removeAttribute("name");
+      }
       window.parent.postMessage(
         { type: "autofill-test-submit", fallback: true },
         window.location.origin
       );
+    });
+
+    form.addEventListener("formdata", (event) => {
+      if (!useLocalSubmitFallback) return;
+      for (const key of [...event.formData.keys()]) {
+        event.formData.delete(key);
+      }
     });
   </script>
 </body>
