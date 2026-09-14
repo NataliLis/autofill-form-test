@@ -10,12 +10,7 @@
   <h1>Payment Card Autofill</h1>
   <p class="hint">Use only test data. No values are sent to a server or stored by this page.</p>
 
-  <form id="card_form" name="payment" action="destination.html" method="post" autocomplete="on">
-    <label for="cc_name">
-      Name on card
-      <input id="cc_name" name="cc-name" type="text" autocomplete="cc-name" placeholder="AUTOFILL TEST" required>
-    </label>
-
+  <form id="card_form" name="payment" action="card-submit" method="post" autocomplete="on">
     <label for="cc_number">
       Card number
       <input
@@ -40,7 +35,8 @@
           type="text"
           autocomplete="cc-exp"
           inputmode="numeric"
-          pattern="(0[1-9]|1[0-2])\s*\/\s*[0-9]{2,4}"
+          pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
+          maxlength="5"
           placeholder="MM/YY"
           required
         >
@@ -62,19 +58,6 @@
       </label>
     </div>
 
-    <label for="billing_postal_code">
-      Billing postal code
-      <input
-        id="billing_postal_code"
-        name="billing-postal-code"
-        type="text"
-        autocomplete="billing postal-code"
-        inputmode="numeric"
-        placeholder="20500"
-        required
-      >
-    </label>
-
     <div class="actions">
       <input type="reset" value="Reset">
       <input id="submit_card" type="submit" value="Submit card">
@@ -82,10 +65,15 @@
   </form>
 
   <script>
-    document.getElementById("card_form").addEventListener("submit", (event) => {
-      event.preventDefault();
-      window.parent.postMessage({ type: "autofill-test-submit", flow: "payment-card" }, window.location.origin);
-      window.location.assign("destination.html?flow=payment-card");
+    const expiration = document.getElementById("cc_exp");
+    expiration.addEventListener("input", (event) => {
+      const digits = expiration.value.replace(/\D/g, "").slice(0, 4);
+      const deleting = event.inputType?.startsWith("delete");
+      expiration.value = digits.length > 2
+        ? `${digits.slice(0, 2)}/${digits.slice(2)}`
+        : digits.length === 2 && !deleting
+          ? `${digits}/`
+          : digits;
     });
   </script>
 </body>

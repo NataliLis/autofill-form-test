@@ -9,7 +9,8 @@
 <body>
   <main>
     <nav aria-label="Autofill test forms">
-      <a href="index.html">Profile</a>
+      <a href="index.html">Home</a>
+      <a href="profile.html">Profile</a>
       <a href="password.html">Passwords</a>
       <a href="card.html" aria-current="page">Cards</a>
     </nav>
@@ -17,14 +18,13 @@
     <div class="form-container">
       <iframe
         id="card-form-iframe"
-        src="card_form.html"
         title="Payment card autofill test form"
         sandbox="allow-scripts allow-forms allow-same-origin"
       ></iframe>
     </div>
 
     <span id="submit-status" class="status" role="status" aria-live="polite">
-      Используйте только тестовые карточные данные
+      Подготавливаю безопасную отправку формы…
     </span>
   </main>
 
@@ -32,8 +32,21 @@
     const iframe = document.getElementById("card-form-iframe");
     const status = document.getElementById("submit-status");
 
-    window.addEventListener("message", (event) => {
-      if (event.origin !== window.location.origin || event.source !== iframe.contentWindow) return;
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("card-submit-sw.js")
+        .then(() => navigator.serviceWorker.ready)
+        .then(() => {
+          iframe.src = "card_form.html";
+          status.textContent = "Используйте только тестовые карточные данные";
+        })
+        .catch(() => {
+          status.textContent = "Service worker недоступен — сохранение карты нельзя проверить";
+        });
+    } else {
+      status.textContent = "Service worker не поддерживается — сохранение карты нельзя проверить";
+    }
+
+    navigator.serviceWorker?.addEventListener("message", (event) => {
       if (event.data?.type === "autofill-test-submit") {
         status.textContent = "Submit распознан: payment card";
       }

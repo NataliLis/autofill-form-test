@@ -3,175 +3,153 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>XHR Autofill Test</title>
-
+  <meta name="description" content="Набор iframe-форм для тестирования браузерного Autofill.">
+  <title>Autofill Lab — iframe test forms</title>
   <style>
     :root {
       color-scheme: light dark;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --ink: light-dark(#182230, #f7f8fa);
+      --muted: light-dark(#667085, #a8b0bd);
+      --line: light-dark(rgba(24,34,48,.11), rgba(255,255,255,.11));
+      --surface: light-dark(rgba(255,255,255,.86), rgba(20,27,38,.84));
+      --solid: light-dark(#fff, #141b26);
+      --canvas: light-dark(#f4f7fb, #090d14);
+      --purple: #6c5ce7;
+      --teal: #00a8a8;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
+      min-height: 100vh;
       margin: 0;
-      padding: 16px;
-      color: light-dark(#171717, #f4f4f5);
-      background: light-dark(#f5f5f7, #09090b);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 12%, color-mix(in srgb, var(--purple) 20%, transparent), transparent 30rem),
+        radial-gradient(circle at 90% 78%, color-mix(in srgb, var(--teal) 18%, transparent), transparent 28rem),
+        var(--canvas);
     }
 
-    main {
-      width: min(100%, 720px);
-      margin: 0 auto;
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 76%);
+      content: "";
+      opacity: .35;
     }
 
-    nav {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
+    main { width: min(1120px, calc(100% - 32px)); margin: auto; padding: 32px 0 56px; }
 
-    nav a {
-      padding: 9px 12px;
-      border: 1px solid light-dark(#d4d4d8, #3f3f46);
-      border-radius: 999px;
-      color: inherit;
-      background: light-dark(#ffffff, #18181b);
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    nav a[aria-current="page"] {
-      border-color: #2563eb;
-      color: #ffffff;
-      background: #2563eb;
-    }
-
-    .form-container {
-      overflow: hidden;
-      border: 1px solid light-dark(#d4d4d8, #3f3f46);
-      border-radius: 16px;
-      background: light-dark(#ffffff, #18181b);
-    }
-
-    iframe {
-      display: block;
-      width: 100%;
-      height: 590px;
-      border: 0;
-      background: light-dark(#ffffff, #18181b);
-    }
-
-    .submit-row {
+    header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      padding-top: 14px;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 10px 0 56px;
     }
 
-    #do-xhr-submit {
-      min-height: 46px;
-      padding: 10px 18px;
-      border: 0;
-      border-radius: 10px;
-      color: #ffffff;
-      background: #2563eb;
-      font: inherit;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    #do-xhr-submit:disabled {
-      cursor: default;
-      opacity: 0.55;
-    }
-
-    #submit-status {
-      color: light-dark(#64646f, #a1a1aa);
+    .brand { display: inline-flex; align-items: center; gap: 11px; color: inherit; font-weight: 750; text-decoration: none; }
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 12px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--purple), #9b6dff 55%, var(--teal));
+      box-shadow: 0 10px 30px rgba(108,92,231,.28);
       font-size: 14px;
     }
+    .header-note { color: var(--muted); font-size: 13px; }
 
-    @media (max-width: 480px) {
-      body {
-        padding: 0;
-      }
+    .hero { max-width: 790px; margin-bottom: 38px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; color: var(--teal); font-size: 13px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+    .eyebrow::before { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 5px color-mix(in srgb, currentColor 15%, transparent); content: ""; }
 
-      .form-container {
-        border: 0;
-        border-radius: 0;
-      }
+    h1 { max-width: 760px; margin: 0; font-size: clamp(42px, 8vw, 78px); font-weight: 780; letter-spacing: -.065em; line-height: .98; }
+    .hero > p:last-child { max-width: 650px; margin: 24px 0 0; color: var(--muted); font-size: clamp(17px, 2vw, 20px); line-height: 1.55; }
 
-      .submit-row {
-        padding: 14px 16px 20px;
-      }
-
-      #do-xhr-submit {
-        width: 100%;
-      }
+    .forms-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .form-card {
+      --accent: var(--purple);
+      position: relative;
+      display: flex;
+      min-height: 310px;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      color: inherit;
+      background: var(--surface);
+      box-shadow: 0 22px 55px rgba(15,23,42,.08);
+      text-decoration: none;
+      backdrop-filter: blur(18px);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     }
+    .form-card:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); box-shadow: 0 28px 70px color-mix(in srgb, var(--accent) 16%, transparent); transform: translateY(-5px); }
+    .form-card:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset: 4px; }
+    .form-card::after { position: absolute; right: -56px; bottom: -70px; width: 180px; height: 180px; border-radius: 50%; background: color-mix(in srgb, var(--accent) 16%, transparent); content: ""; }
+    .passwords { --accent: #e17055; }
+    .cards { --accent: var(--teal); }
+
+    .card-number { width: fit-content; padding: 6px 9px; border-radius: 9px; color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+    h2 { margin: 28px 0 10px; font-size: 26px; letter-spacing: -.035em; }
+    .form-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+    .tokens { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 20px; }
+    .tokens span { padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); background: var(--solid); font-family: ui-monospace, monospace; font-size: 11px; }
+    .open-label { display: flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 22px; color: var(--accent); font-size: 14px; font-weight: 750; }
+    .open-label span { transition: transform 180ms ease; }
+    .form-card:hover .open-label span { transform: translateX(4px); }
+    footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 28px; color: var(--muted); font-size: 12px; }
+
+    @media (max-width: 820px) { .forms-grid { grid-template-columns: 1fr; } .form-card { min-height: 260px; } }
+    @media (max-width: 520px) { main { width: calc(100% - 24px); padding-top: 16px; } header { padding-bottom: 42px; } .header-note { display: none; } h1 { font-size: clamp(42px, 15vw, 62px); } .form-card { padding: 21px; border-radius: 20px; } footer { flex-direction: column; } }
+    @media (prefers-reduced-motion: reduce) { .form-card, .open-label span { transition: none; } }
   </style>
 </head>
-
 <body>
   <main>
-    <nav aria-label="Autofill test forms">
-      <a href="index.html" aria-current="page">Profile</a>
-      <a href="password.html">Passwords</a>
-      <a href="card.html">Cards</a>
-    </nav>
+    <header>
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">AF</span>Autofill Lab</a>
+      <span class="header-note">Same-origin iframe test suite</span>
+    </header>
 
-    <div class="form-container">
-      <iframe
-        id="address-form-iframe"
-        src="autofill_smoke_test.html"
-        title="Profile Autofill test form"
-        sandbox="allow-scripts allow-forms allow-same-origin"
-      ></iframe>
-    </div>
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">Browser test bench</p>
+      <h1 id="page-title">Три формы.<br>Один iframe-lab.</h1>
+      <p>Проверяйте распознавание полей, саджесты над клавиатурой и сохранение данных браузером — в изолированных сценариях без серверного хранения.</p>
+    </section>
 
-    <div class="submit-row">
-      <button id="do-xhr-submit" type="button">
-        XHR Submit
-      </button>
+    <section class="forms-grid" aria-label="Autofill test forms">
+      <a class="form-card" href="profile.html">
+        <span class="card-number">01 · PROFILE</span>
+        <h2>Профиль и адрес</h2>
+        <p>Имя, улица, город, регион, индекс и email в исходной smoke-test форме.</p>
+        <div class="tokens"><span>name</span><span>street-address</span><span>email</span></div>
+        <div class="open-label">Открыть форму <span aria-hidden="true">→</span></div>
+      </a>
+      <a class="form-card passwords" href="password.html">
+        <span class="card-number">02 · PASSWORDS</span>
+        <h2>Пароли</h2>
+        <p>Отдельные сценарии входа и регистрации для проверки заполнения и сохранения credentials.</p>
+        <div class="tokens"><span>username</span><span>current-password</span><span>new-password</span></div>
+        <div class="open-label">Открыть форму <span aria-hidden="true">→</span></div>
+      </a>
+      <a class="form-card cards" href="card.html">
+        <span class="card-number">03 · PAYMENT</span>
+        <h2>Банковская карта</h2>
+        <p>Номер, срок действия с автоформатированием и CVC; настоящий безопасный submit.</p>
+        <div class="tokens"><span>cc-number</span><span>cc-exp</span><span>cc-csc</span></div>
+        <div class="open-label">Открыть форму <span aria-hidden="true">→</span></div>
+      </a>
+    </section>
 
-      <span id="submit-status" role="status" aria-live="polite">
-        Заполните поля вручную
-      </span>
-    </div>
+    <footer><span>Тестовые данные не сохраняются сайтом.</span><span>GitHub Pages · HTTPS</span></footer>
   </main>
-
-  <script>
-    const xhrButton = document.getElementById("do-xhr-submit");
-    const status = document.getElementById("submit-status");
-
-    xhrButton.addEventListener("click", () => {
-      const iframeDocument = document.getElementById("address-form-iframe").contentDocument;
-      const form = iframeDocument?.forms[0];
-
-      if (!form) {
-        status.textContent = "Форма уже отправлена";
-        return;
-      }
-
-      if (!form.reportValidity()) {
-        status.textContent = "Заполните все поля";
-        return;
-      }
-
-      // Имитирует XHR-сабмит из оригинальной тестовой страницы:
-      // форма удаляется внутри дочернего iframe.
-      form.remove();
-
-      status.textContent =
-        "XHR Submit выполнен — форма удалена из iframe";
-
-      xhrButton.disabled = true;
-    });
-  </script>
 </body>
 </html>
