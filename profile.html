@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Profile Autofill Test</title>
-  <link rel="stylesheet" href="shell.css?v=20260914-2">
+  <link rel="stylesheet" href="shell.css?v=20261005-1">
 </head>
 <body>
   <main>
@@ -12,6 +12,7 @@
       <a class="brand" href="index.html"><span aria-hidden="true">AF</span>Autofill Lab</a>
       <nav aria-label="Autofill test forms">
         <a href="profile.html" aria-current="page">Profile</a>
+        <a href="cross-frame-profile.html">Cross-frame</a>
         <a href="password.html">Passwords</a>
         <a href="card.html">Cards</a>
       </nav>
@@ -19,7 +20,7 @@
     <section class="page-intro">
       <p class="kicker">01 · Profile</p>
       <h1>Профиль и адрес</h1>
-      <p>Проверка распознавания контактных данных и сохранения нового профиля.</p>
+      <p>Проверка распознавания контактных данных и сохранения нового профиля. Отдельный сценарий: <a href="cross-frame-profile.html">поля в разных iframe</a>.</p>
     </section>
     <div class="form-container">
       <iframe class="profile-frame" id="address-form-iframe" src="autofill_smoke_test.html" title="Profile autofill test form" sandbox="allow-scripts allow-forms allow-same-origin"></iframe>

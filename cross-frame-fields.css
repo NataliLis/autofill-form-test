@@ -1,0 +1,52 @@
+:root {
+  color-scheme: light dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --ink: light-dark(#182230, #f7f8fa);
+  --line: light-dark(#d9dee8, #384253);
+  --field: light-dark(#fff, #1b2431);
+  --canvas: light-dark(#fff, #141b26);
+  --purple: #6c5ce7;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  display: grid;
+  gap: 15px;
+  margin: 0;
+  padding: 20px;
+  color: var(--ink);
+  background: var(--canvas);
+}
+
+label {
+  display: grid;
+  min-width: 0;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: inherit;
+  background: var(--field);
+  font: inherit;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--purple) 14%, transparent);
+}
+
+input:autofill { border-color: #00a8a8; }
+
+@media (max-width: 390px) {
+  body { padding: 16px; }
+}

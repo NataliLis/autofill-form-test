@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cross-frame Profile Autofill Test</title>
+  <link rel="stylesheet" href="shell.css?v=20261005-1">
+  <link rel="stylesheet" href="cross-frame-profile.css?v=20261005-1">
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <a class="brand" href="index.html"><span aria-hidden="true">AF</span>Autofill Lab</a>
+      <nav aria-label="Autofill test forms">
+        <a href="profile.html">Profile</a>
+        <a href="cross-frame-profile.html" aria-current="page">Cross-frame</a>
+        <a href="password.html">Passwords</a>
+        <a href="card.html">Cards</a>
+      </nav>
+    </header>
+
+    <section class="page-intro">
+      <h1>Профиль в двух iframe</h1>
+    </section>
+
+    <form id="cross-frame-profile" class="cross-frame-profile" action="destination.html" method="get" autocomplete="on">
+      <section class="cross-frame-block" aria-labelledby="identity-frame-title">
+        <h2 id="identity-frame-title">Имя</h2>
+        <iframe
+          src="cross-frame-profile-name.html"
+          title="Фамилия и имя"
+        ></iframe>
+      </section>
+
+      <section class="cross-frame-block" aria-labelledby="contact-frame-title">
+        <h2 id="contact-frame-title">Контакты</h2>
+        <iframe
+          src="cross-frame-profile-contact.html"
+          title="Телефон и email"
+        ></iframe>
+      </section>
+
+      <button class="cross-frame-submit" type="submit">Submit profile</button>
+    </form>
+  </main>
+</body>
+</html>

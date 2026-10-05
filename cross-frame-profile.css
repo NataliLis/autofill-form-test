@@ -1,0 +1,55 @@
+.cross-frame-profile {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.cross-frame-block {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: 0 24px 65px rgba(15,23,42,.1);
+  backdrop-filter: blur(18px);
+}
+
+.cross-frame-block h2 {
+  margin: 0;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 16px;
+  letter-spacing: -.02em;
+}
+
+.cross-frame-block iframe {
+  display: block;
+  width: 100%;
+  height: 190px;
+  border: 0;
+  background: light-dark(#fff, #141b26);
+}
+
+.cross-frame-submit {
+  grid-column: 1 / -1;
+  min-height: 46px;
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--purple), #7d6bf2);
+  box-shadow: 0 10px 22px rgba(108,92,231,.2);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cross-frame-submit:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--purple) 45%, transparent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .cross-frame-profile { grid-template-columns: 1fr; }
+  .cross-frame-block { border-radius: 20px; }
+}
