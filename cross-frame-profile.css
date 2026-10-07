@@ -5,6 +5,7 @@
 }
 
 .cross-frame-block {
+  align-self: start;
   min-width: 0;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -25,10 +26,12 @@
 .cross-frame-block iframe {
   display: block;
   width: 100%;
-  height: 190px;
   border: 0;
   background: light-dark(#fff, #141b26);
 }
+
+.cross-frame-block--identity iframe { height: 190px; }
+.cross-frame-block--contact iframe { height: 535px; }
 
 .cross-frame-submit {
   grid-column: 1 / -1;

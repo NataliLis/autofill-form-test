@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cross-frame Profile Autofill Test</title>
   <link rel="stylesheet" href="shell.css?v=20261005-1">
-  <link rel="stylesheet" href="cross-frame-profile.css?v=20261005-1">
+  <link rel="stylesheet" href="cross-frame-profile.css?v=20261005-2">
 </head>
 <body>
   <main>
@@ -24,7 +24,7 @@
     </section>
 
     <form id="cross-frame-profile" class="cross-frame-profile" action="destination.html" method="get" autocomplete="on">
-      <section class="cross-frame-block" aria-labelledby="identity-frame-title">
+      <section class="cross-frame-block cross-frame-block--identity" aria-labelledby="identity-frame-title">
         <h2 id="identity-frame-title">Имя</h2>
         <iframe
           src="cross-frame-profile-name.html"
@@ -32,10 +32,10 @@
         ></iframe>
       </section>
 
-      <section class="cross-frame-block" aria-labelledby="contact-frame-title">
+      <section class="cross-frame-block cross-frame-block--contact" aria-labelledby="contact-frame-title">
         <h2 id="contact-frame-title">Контакты</h2>
         <iframe
-          src="cross-frame-profile-contact.html"
+          src="cross-frame-profile-contact.html?v=20261005-2"
           title="Телефон и email"
         ></iframe>
       </section>

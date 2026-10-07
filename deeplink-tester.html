@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Статический тестер custom URL schemes и Android intent-ссылок.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'">
+  <title>Deeplink Tester — Testing Lab</title>
+  <link rel="stylesheet" href="shell.css?v=20261007-1">
+  <link rel="stylesheet" href="deeplink-tester.css?v=20261007-1">
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <a class="brand" href="index.html"><span aria-hidden="true">TL</span>Testing Lab</a>
+      <nav aria-label="Testing Lab navigation">
+        <a href="index.html">Главная</a>
+        <a href="index.html#autofill">Autofill</a>
+        <a href="deeplink-tester.html" aria-current="page">Deeplinks</a>
+      </nav>
+    </header>
+    <section class="page-intro">
+      <p class="kicker">Tools · Deeplinks</p>
+      <h1>Deeplink Tester</h1>
+      <p>Проверка запуска установленного приложения через custom URL scheme или Android intent.</p>
+    </section>
+    <section class="deeplink-panel" aria-labelledby="tester-title">
+      <h2 id="tester-title">Проверить диплинк</h2>
+      <form id="deeplink-form" novalidate>
+        <label for="deeplink-input">Deep link</label>
+        <textarea id="deeplink-input" name="deeplink" rows="5" placeholder="myapp://product?id=12345" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></textarea>
+        <p class="field-note">Поддерживаются custom schemes и Android <code>intent://</code>. Обычные HTTP(S)-ссылки не запускаются.</p>
+        <p id="deeplink-status" class="tester-status" role="status" aria-live="polite"></p>
+        <div class="tester-actions">
+          <button id="run-deeplink" type="submit" disabled>Run test</button>
+          <button id="reset-deeplink" type="reset" disabled>Start over</button>
+        </div>
+      </form>
+    </section>
+    <details class="deeplink-help">
+      <summary>Что вводить?</summary>
+      <div>
+        <p><strong>Custom URL scheme</strong></p><code>myapp://product?id=12345</code>
+        <p><strong>Android intent</strong></p><code>intent://product/123#Intent;scheme=myapp;package=com.example.app;end</code>
+      </div>
+    </details>
+    <p class="privacy-note">Значение обрабатывается только в браузере и не отправляется на сервер.</p>
+  </main>
+  <script src="deeplink-tester.js?v=20261007-1"></script>
+</body>
+</html>
