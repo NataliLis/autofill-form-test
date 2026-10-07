@@ -93,6 +93,7 @@
     .passwords { --accent: var(--orange); }
     .cards, .deeplinks { --accent: var(--teal); }
     .deeplinks { min-height: 220px; }
+    .test-cards { --accent: var(--orange); min-height: 220px; }
     .card-number { width: fit-content; padding: 6px 9px; border-radius: 9px; color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
     .tool-card h3 { margin: 25px 0 9px; font-size: 24px; letter-spacing: -.035em; }
     .tool-card p { max-width: 620px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
@@ -176,6 +177,12 @@
           <span class="card-number">TOOL 01 · DEEPLINKS</span><h3>Deeplink Tester</h3>
           <p>Проверка custom URL schemes и Android intent-ссылок без SDK, аналитики и серверной отправки.</p>
           <div class="tokens"><span>myapp://</span><span>intent://</span></div>
+          <div class="open-label">Открыть инструмент <span aria-hidden="true">→</span></div>
+        </a>
+        <a class="tool-card test-cards" href="card-generator.html">
+          <span class="card-number">TOOL 02 · TEST CARDS</span><h3>Генератор тестовых карт</h3>
+          <p>Локальная генерация синтетических Luhn-valid номеров, сроков действия и CVV для проверки форм.</p>
+          <div class="tokens"><span>Luhn</span><span>JSON</span><span>CSV</span></div>
           <div class="open-label">Открыть инструмент <span aria-hidden="true">→</span></div>
         </a>
       </div>

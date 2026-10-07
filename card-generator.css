@@ -1,0 +1,54 @@
+.generator-panel, .generator-output {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: 0 24px 65px rgba(15,23,42,.1);
+  backdrop-filter: blur(18px);
+}
+.generator-panel h2, .generator-output h2 { margin: 0; font-size: 22px; letter-spacing: -.03em; }
+#card-generator-form { display: grid; gap: 18px; margin-top: 20px; }
+.generator-fields { display: grid; grid-template-columns: 1.4fr .8fr 1fr; gap: 12px; }
+.generator-fields label { display: grid; gap: 7px; font-size: 13px; font-weight: 700; }
+.generator-fields select {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  background: light-dark(#fff, #1b2431);
+  font: inherit;
+}
+.generator-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.generator-actions button, #copy-results, .copy-card {
+  min-height: 44px;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 11px;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+.generator-actions button[type="submit"] { color: #fff; background: linear-gradient(135deg, var(--purple), #7d6bf2); box-shadow: 0 10px 22px rgba(108,92,231,.2); }
+.generator-actions button[type="reset"], #copy-results, .copy-card { color: var(--ink); background: light-dark(#eef0f5, #293445); }
+.generator-output { margin-top: 16px; }
+.output-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 16px; }
+#copy-results { min-height: 38px; font-size: 13px; }
+#card-results { display: grid; gap: 11px; }
+.generated-card { display: grid; grid-template-columns: 1fr auto; gap: 14px; padding: 17px; border: 1px solid var(--line); border-radius: 16px; background: light-dark(#fff, #141b26); }
+.generated-card dl { display: grid; grid-template-columns: auto 1fr; gap: 7px 13px; margin: 0; }
+.generated-card dt { color: var(--muted); font-size: 12px; }
+.generated-card dd { margin: 0; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; overflow-wrap: anywhere; }
+.copy-card { align-self: start; min-height: 36px; padding: 8px 11px; font-size: 12px; }
+#formatted-results { overflow: auto; margin: 0; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: light-dark(#fff, #141b26); font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; }
+.generator-status { min-height: 18px; margin: 12px 0 0; color: var(--muted); font-size: 13px; }
+.generator-warning { margin-top: 14px; padding: 16px 18px; border: 1px solid color-mix(in srgb, #e17055 35%, var(--line)); border-radius: 16px; color: var(--muted); background: color-mix(in srgb, #e17055 8%, var(--surface)); font-size: 13px; line-height: 1.55; }
+.generator-warning strong { color: var(--ink); }
+@media (max-width: 640px) {
+  .generator-panel, .generator-output { margin-right: -12px; margin-left: -12px; padding: 20px 12px; border-right: 0; border-left: 0; border-radius: 0; }
+  .generator-fields, .generator-actions { grid-template-columns: 1fr; }
+  .generated-card { grid-template-columns: 1fr; }
+  .copy-card { width: 100%; }
+  .output-heading { align-items: flex-start; flex-direction: column; }
+}

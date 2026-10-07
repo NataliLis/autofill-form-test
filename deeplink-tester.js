@@ -9,7 +9,7 @@
 
   function validateDeepLink(rawValue) {
     const value = rawValue.trim();
-    const match = value.match(/^([a-z][a-z0-9+.-]*):\/\/\S+$/i);
+    const match = value.match(/^([a-z][a-z0-9+.-]*):\/\/\S*$/i);
     if (!value) return { error: "Введите диплинк." };
     if (!match) return { error: "Нужен полный URL со схемой и ://." };
     const scheme = match[1].toLowerCase();

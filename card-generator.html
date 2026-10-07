@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Локальный генератор синтетических Luhn-valid карточных данных для тестирования форм.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <title>Генератор тестовых карт — Testing Lab</title>
+  <link rel="stylesheet" href="shell.css?v=20261007-1">
+  <link rel="stylesheet" href="card-generator.css?v=20261007-1">
+</head>
+<body>
+  <main>
+    <header class="site-header">
+      <a class="brand" href="index.html"><span aria-hidden="true">TL</span>Testing Lab</a>
+      <nav aria-label="Testing Lab navigation">
+        <a href="index.html">Главная</a>
+        <a href="index.html#tools">Инструменты</a>
+        <a href="card-generator.html" aria-current="page">Test cards</a>
+      </nav>
+    </header>
+
+    <section class="page-intro">
+      <p class="kicker">Tools · Test data</p>
+      <h1>Генератор тестовых карт</h1>
+      <p>Синтетические данные для проверки масок, Luhn-валидации и карточного Autofill.</p>
+    </section>
+
+    <section class="generator-panel" aria-labelledby="generator-title">
+      <h2 id="generator-title">Параметры</h2>
+      <form id="card-generator-form">
+        <div class="generator-fields">
+          <label for="card-network">
+            Платёжная сеть
+            <select id="card-network" name="network">
+              <option value="visa">Visa</option>
+              <option value="mastercard">Mastercard</option>
+              <option value="amex">American Express</option>
+              <option value="discover">Discover</option>
+              <option value="jcb">JCB</option>
+              <option value="unionpay">UnionPay</option>
+            </select>
+          </label>
+
+          <label for="card-count">
+            Количество
+            <select id="card-count" name="count">
+              <option value="1">1</option>
+              <option value="3" selected>3</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+            </select>
+          </label>
+
+          <label for="output-format">
+            Формат
+            <select id="output-format" name="format">
+              <option value="cards">Карточки</option>
+              <option value="json">JSON</option>
+              <option value="csv">CSV</option>
+              <option value="text">TEXT</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="generator-actions">
+          <button type="submit">Сгенерировать</button>
+          <button type="reset">Сбросить</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="generator-output" aria-labelledby="output-title" hidden>
+      <div class="output-heading">
+        <h2 id="output-title">Результат</h2>
+        <button id="copy-results" type="button">Копировать всё</button>
+      </div>
+      <div id="card-results"></div>
+      <pre id="formatted-results" tabindex="0" hidden></pre>
+      <p id="generator-status" class="generator-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <aside class="generator-warning">
+      <strong>Только тестовые данные.</strong>
+      Номера создаются алгоритмически и проходят только проверку Luhn. Они не связаны со счетами и не предназначены для реальных платежей. Для тестов авторизации используйте официальную sandbox-среду своего процессинга.
+    </aside>
+  </main>
+  <script src="card-generator.js?v=20261007-1"></script>
+</body>
+</html>
